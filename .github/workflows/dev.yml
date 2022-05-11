@@ -4,6 +4,7 @@ on:
   pull_request:
     branches:
       - 'master'
+      - 'google_maps'
 
 jobs:
   run_pytest:
