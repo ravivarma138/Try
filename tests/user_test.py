@@ -1,14 +1,14 @@
 import logging
 
 from app import db
-from app.db.models import User, Song
+from app.db.models import User, Transaction
 from faker import Faker
 
 def test_adding_user(application):
     log = logging.getLogger("myApp")
     with application.app_context():
         assert db.session.query(User).count() == 0
-        assert db.session.query(Song).count() == 0
+        assert db.session.query(Transaction).count() == 0
         #showing how to add a record
         #create a record
         user = User('keith@webizly.com', 'testtest')
@@ -24,22 +24,17 @@ def test_adding_user(application):
         #asserting that the user retrieved is correct
         assert user.email == 'keith@webizly.com'
         #this is how you get a related record ready for insert
-        user.songs= [Song("test","smap"),Song("test2","te")]
+        user.transactions= [Transaction("2000","credit"),Transaction("1000","debit")]
         #commit is what saves the songs
         db.session.commit()
-        assert db.session.query(Song).count() == 2
-        song1 = Song.query.filter_by(title='test').first()
-        assert song1.title == "test"
-        #changing the title of the song
-        song1.title = "SuperSongTitle"
-        #saving the new title of the song
-        db.session.commit()
-        song2 = Song.query.filter_by(title='SuperSongTitle').first()
-        assert song2.title == "SuperSongTitle"
+        assert db.session.query(Transaction).count() == 2
+        transactions1 = Transaction.query.filter_by(AMOUNT='2000').first()
+        assert transactions1.AMOUNT == "2000"
+
         #checking cascade delete
         db.session.delete(user)
         assert db.session.query(User).count() == 0
-        assert db.session.query(Song).count() == 0
+        assert db.session.query(Transaction).count() == 0
 
 
 
