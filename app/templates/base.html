@@ -19,6 +19,35 @@
 <body>
 <div class="container">
 
+    <!-- Header -->
+    <header style="max-width:1500px;">
+
+        <div class="w3-display-middle w3-margin-top w3-center">
+            <h1 class="w3-xxlarge w3-text-white"><span class="w3-padding w3-black w3-opacity-min"><b>FLASK</b> </span>
+                <span class="w3-hide-small w3-text-light-grey">Welcome to my flask project</span></h1>
+        </div>
+    </header>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            min-height: 40vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #7d2ae8;
+            padding: 30px;
+        }
+    </style>
+
     <div class="row">
         <header class="mb-2">
             {% from 'bootstrap5/nav.html' import render_nav_item %}
@@ -55,11 +84,16 @@
                                     Profile</a></li>
                                 <li><a class="dropdown-item" href="{{ url_for("auth.edit_account") }}">Manage
                                     Account</a></li>
-                                {% if current_user.is_admin %}
-                                    <li><a class="dropdown-item" href="{{ url_for("auth.browse_users") }}">User Mgmt</a></li>
-                                    <li><a class="dropdown-item" href="{{ url_for("map.browse_locations") }}">Loc Mgmt</a></li>
-                                    <li><a class="dropdown-item" href="{{ url_for("transactions.transaction_browse") }}">Transaction Mgmt</a></li>
-                                    <li><a class="dropdown-item" href="{{ url_for("map.browse_locations_datatables") }}">Loc Mgmt(dt)</a></li>
+                                {% if current_user.is_authenticated %}
+                                    <li><a class="dropdown-item" href="{{ url_for("auth.browse_users") }}">User Mgmt</a>
+                                    </li>
+                                    <li><a class="dropdown-item" href="{{ url_for("map.browse_locations") }}">Loc
+                                        Mgmt</a></li>
+                                    <li><a class="dropdown-item"
+                                           href="{{ url_for("transactions.transaction_browse") }}">Transaction Mgmt</a>
+                                    </li>
+                                    <li><a class="dropdown-item"
+                                           href="{{ url_for("map.browse_locations_datatables") }}">Loc Mgmt(dt)</a></li>
 
 
                                 {% endif %}
@@ -93,8 +127,6 @@
     {{ bootstrap.load_js() }}
 
 {% endblock %}
-<footer class="text-center mt-5">
-    Environment: {{ deployment_environment }} - Copyright: {{ year }} {{ format_price(100) }}
-</footer>
+
 </body>
 </html>
