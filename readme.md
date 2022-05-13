@@ -1,4 +1,4 @@
-Heroku app: https://dashboard.heroku.com/apps/final-project138
+Heroku app: https://final-project138.herokuapp.com/
 
 # Project Setup
 
